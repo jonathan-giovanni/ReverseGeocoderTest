@@ -56,7 +56,8 @@ Siempre en manifest dentro de las etiquetas ``` <application> ... </application>
       ...
     }
 
-Para obtener Latitud y Longitud de la posición en ese instante llama a la función ``` updateLatLng(); ``` y captura el resultado en la siguiente función
+Para obtener Latitud y Longitud de la posición en ese instante llama a la función ``` updateLatLng(); ``` y captura el resultado agregando el siguiente método
+    
     
     @Override
     protected void handleNewLocation(Location location) {
@@ -65,4 +66,6 @@ Para obtener Latitud y Longitud de la posición en ese instante llama a la funci
         double lng = location.getLongitude();
     }
     
+Por defecto las actualizaciones automaticas estan desactivadas pero si deseas cambiar esto llama al metodo ``` isAutomaticUpdates( true o false ) ``` y asignale true o false dependiendo que desees, y si quieres establecer cada cuanto tiempo se haran las actualizaciones entonces llama al mismo método pero envia como segundo parametro el tiempo en milisegundos.
+
 

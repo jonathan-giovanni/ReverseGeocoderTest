@@ -4,12 +4,13 @@
 <img src="https://github.com/jonathancplusplus/ReverseGeocoderTest/blob/master/example_geocoder.png" width="480">
 
 Este proyecto aplica las siguientes funciones:
-    * Obtención de latitud y longitud de manera precisa
-    * Implementación sencilla a traves de herencia al Activity que deseas aplicar
-    * Manejo de Permisos necesarios para obtener la ubicación
-    * Manejo de error en caso de que el GPS este desactivado
-    * Geocodificación inversa por medio de llamada a un servicio
-    * No necesita <b> Google API Key</b> para ser usado
+
+* Obtención de latitud y longitud de manera precisa
+* Implementación sencilla a traves de herencia al Activity que deseas aplicar
+* Manejo de Permisos necesarios para obtener la ubicación
+* Manejo de error en caso de que el GPS este desactivado
+* Geocodificación inversa por medio de llamada a un servicio
+* No necesita <b> Google API Key</b> para ser usado
 
 # ¿Qué es la Geocodificación inversa?
 

@@ -1,4 +1,4 @@
-# Geocodificación Inversa usando la API de Google
+# Geocodificación Inversa en Android usando la API de Google
 
 
 <img src="https://github.com/jonathancplusplus/ReverseGeocoderTest/blob/master/example_geocoder.png" width="480">
@@ -48,8 +48,9 @@ Siempre en manifest dentro de las etiquetas ``` <application> ... </application>
   
 <b> Finalmente copia los archivos </b>  ``` Constants.java , FetchAddressIntentService.java , PositionLatLngActivity.java , Utils.java ``` <b> que estan en [ReverseGeocoderTest/app/src/main/java/com/softlutions/hv12/reversegeocodertest/](https://github.com/jonathancplusplus/ReverseGeocoderTest/tree/master/app/src/main/java/com/softlutions/hv12/reversegeocodertest). a tu proyecto </b>
 
+# ¿Comó usar los servicios de geolocalización?
 
-https://github.com/jonathancplusplus/ReverseGeocoderTest/tree/master/app/src/main/java/com/softlutions/hv12/reversegeocodertest
+<b> Aplica herencia de la clase ``` PositionLatLngActivity ``` en el activity que deseas agregar la funcionalidad de Geolocalización. </b>
 
-
+* Para obtener Latitud y Longitud de la posición en ese instante llama a la funcion 
 

@@ -28,11 +28,15 @@ Para integrar los servicios de la API de Google
         implementation 'com.google.android.gms:play-services:12.0.1'
     }
 
-* Segundo se deben agregar los siguientes cambios al archivo ``` AndroidManifest.xml ```
+* Segundo se deben agregar los siguientes cambios al archivo ``` AndroidManifest.xml```
 
-      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-      <uses-permission android:name="android.permission.INTERNET"/>
-      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+Permisos necesarios para habilitar la geolocalización
+    ```
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    ```
+   
 
 

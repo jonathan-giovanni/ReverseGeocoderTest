@@ -45,6 +45,9 @@ Siempre en manifest dentro de las etiquetas ``` <application> ... </application>
             android:name=".FetchAddressIntentService"
             android:exported="false"/>
     </application>
-   
+  
+<b> Finalmente copia los archivos </b>  ``` Constants.java , FetchAddressIntentService.java , PositionLatLngActivity.java , Utils.java ``` <b> a tu proyecto </b>
+
+
 
 

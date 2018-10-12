@@ -1,4 +1,4 @@
-# Geocodificación Inversa en Android usando la API de Google
+# Geocodificación Inversa en Android
 
 
 <img src="https://github.com/jonathancplusplus/ReverseGeocoderTest/blob/master/example_geocoder.png" width="480">

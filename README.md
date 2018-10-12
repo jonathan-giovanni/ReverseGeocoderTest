@@ -55,8 +55,8 @@ Siempre en manifest dentro de las etiquetas ``` <application> ... </application>
     public class MainActivity extends PositionLatLngActivity {
       ...
     }
-
-Para obtener Latitud y Longitud de la posición en ese instante llama a la función ``` updateLatLng(); ``` y captura el resultado agregando el siguiente método
+<b> Conocer la coordenada GPS </b>
+Si deseas saber Latitud y Longitud de la posición en ese instante llama a la función ``` updateLatLng(); ``` y captura el resultado agregando el siguiente método
     
     
     @Override
@@ -66,6 +66,65 @@ Para obtener Latitud y Longitud de la posición en ese instante llama a la funci
         double lng = location.getLongitude();
     }
     
-Por defecto las actualizaciones automaticas estan desactivadas pero si deseas cambiar esto llama al metodo ``` isAutomaticUpdates( true o false ) ``` y asignale true o false dependiendo que desees, y si quieres establecer cada cuanto tiempo se haran las actualizaciones entonces llama al mismo método pero envia como segundo parametro el tiempo en milisegundos.
+Por defecto las actualizaciones automáticas estan desactivadas pero si deseas cambiar esto llama al método ``` isAutomaticUpdates( true o false ) ``` y asignale true o false dependiendo que desees, y si quieres establecer cada cuanto tiempo se haran las actualizaciones entonces llama al mismo método pero envia como segundo parametro el tiempo en milisegundos.
 
+<b> Conocer la ubicación (País,Estado o Departamento y Ciudad ) </b>
 
+Aquí se aplica la geocodificación inversa de manera que conociendo las coordenadas del GPS como se puede observar en la función ``` protected void handleNewLocation(Location location) { ... } ``` se envian como parametros a la API de Google Places y se obtiene las variables de ubicación mencionadas, para esto se agrega los siguientes fragmentos de código:
+
+Para obtener el resultado del servicio de ubicación creamos la siguiente clase dentro de nuestro activity:
+
+    private class AddressResultReceiver extends ResultReceiver {
+        AddressResultReceiver(Handler handler) {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData) {
+        
+            String r_address = resultData.getString(Constants.RESULT_DATA_KEY);
+            
+            if (resultCode == Constants.SUCCESS_RESULT) {
+                //en caso de que se encuentra la dirección
+                Toast.makeText(MainActivity.this, "Dirección encontrada "+r_address, Toast.LENGTH_SHORT).show();
+            }else{
+                //en caso de que no se encontro la dirección
+                Toast.makeText(MainActivity.this, "No se encontro direcion", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+Creamos el siguiente objeto en nuestra activity que manejara los resultados:
+
+    private AddressResultReceiver mResultReceiver;
+    
+Se inicializa el objeto ``` mResultReceiver ``` que acabamos de crear,esto dentro de la función ``` onCreate ```
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        ...
+        
+        // se crea un manejador para recivir los resultados
+        mResultReceiver  = new AddressResultReceiver(new Handler());   
+    }
+
+Iniciando el servicio de ubicación dada una coordenada GPS:
+
+    @Override
+    protected void handleNewLocation(Location location) {
+        super.handleNewLocation(location);
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+        /**obtengo la latitud y longitud*/
+        if (!Geocoder.isPresent()) {
+            Toast.makeText(this, "No hay geocoder ", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        intent.putExtra(Constants.RECEIVER, mResultReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
+        startService(intent);
+    }

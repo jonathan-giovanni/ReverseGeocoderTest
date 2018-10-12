@@ -3,11 +3,12 @@
 
 <img src="https://github.com/jonathancplusplus/ReverseGeocoderTest/blob/master/example_geocoder.png" width="480">
 
-Este proyecto aplica las siguientes funciones:
+Este proyecto tiene las siguientes caracteristicas:
 
 * Obtención de latitud y longitud de manera precisa
+* Se puede establecer en modo automático para obtener cambios en la ubicación
 * Implementación sencilla a traves de herencia al Activity que deseas aplicar
-* Manejo de Permisos necesarios para obtener la ubicación
+* Manejo de permisos necesarios para obtener la ubicación
 * Manejo de error en caso de que el GPS este desactivado
 * Geocodificación inversa por medio de llamada a un servicio
 * No necesita <b> Google API Key</b> para ser usado
@@ -59,7 +60,7 @@ Siempre en manifest dentro de las etiquetas ``` <application> ... </application>
 
 # ¿Comó usar los servicios de geolocalización?
 
-<b> Aplica herencia de la clase </b> ``` PositionLatLngActivity ``` <b> en el activity que deseas agregar la funcionalidad de Geolocalización. </b>
+<b> Aplica herencia de la clase </b> ``` PositionLatLngActivity ``` <b> en el Activity que deseas agregar la funcionalidad de geolocalización. </b>
 
     public class MainActivity extends PositionLatLngActivity {
       ...

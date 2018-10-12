@@ -52,6 +52,10 @@ Siempre en manifest dentro de las etiquetas ``` <application> ... </application>
 
 <b> Aplica herencia de la clase </b> ``` PositionLatLngActivity ``` <b> en el activity que deseas agregar la funcionalidad de Geolocalización. </b>
 
+    public class MainActivity extends PositionLatLngActivity {
+      ...
+    }
+
 Para obtener Latitud y Longitud de la posición en ese instante llama a la función ``` updateLatLng(); ``` y captura el resultado en la siguiente función
     
     @Override

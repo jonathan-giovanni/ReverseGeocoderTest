@@ -37,7 +37,14 @@ Permisos necesarios para habilitar la geolocalización
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+Siempre en manifest dentro de las etiquetas ``` <application> ... </application> ``` se agrega el siguiente servicio
 
+    <application ...>
+        ... 
+        <service
+            android:name=".FetchAddressIntentService"
+            android:exported="false"/>
+    </application>
    
 
 

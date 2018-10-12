@@ -12,7 +12,7 @@ La geocodificación inversa es el proceso por el cual se obtiene una ubicación 
 
 * Primero se deben agregar las siguientes dependencias al archivo ``` build.gradle (Module : app ) ```
 
-Para habilitar el uso de Lambda
+\tPara habilitar el uso de Lambda
 
     android {
         ...

@@ -30,10 +30,9 @@ Para integrar los servicios de la API de Google
 
 * Segundo se deben agregar los siguientes cambios al archivo ``` AndroidManifest.xml ```
 
-    <!-- Permisos necesarios para obtener la localizacion /-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+      <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+      <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+      <uses-permission android:name="android.permission.INTERNET"/>
+      <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 

@@ -1,6 +1,6 @@
 # Geocodificación Inversa usando la API de Google
 
-![Alt text](https://github.com/jonathancplusplus/ReverseGeocoderTest/blob/master/example_geocoder.png "Example")
+![Alt text](https://github.com/jonathancplusplus/ReverseGeocoderTest/blob/master/example_geocoder.png | width=48 "Example")
 
 # ¿Qué es la Geocodificación inversa?
 

@@ -1,11 +1,14 @@
 # Geocodificación Inversa usando la API de Google
 
+
+(https://github.com/jonathancplusplus/ReverseGeocoderTest/blob/master/example_geocoder.png)
+
 # ¿Qué es la Geocodificación inversa?
 
 La geocodificación inversa es el proceso por el cual se obtiene una ubicación (País,Ciudad,etc) dada una coordenada GPS (latitud y longitud), más información en [Wikipedia](https://en.wikipedia.org/wiki/Reverse_geocoding).
 
 
-# Comó integrarlo en un proyecto
+# ¿Comó integrarlo en un proyecto?
 
 Primero que se deben agregar las siguientes dependencias al archivo ``` build.gradle (Module : app ) ```
 

@@ -9,8 +9,8 @@ La geocodificación inversa es el proceso por el cual se obtiene una ubicación 
 
 Primero que se deben agregar las siguientes dependencias al archivo ``` build.gradle (Module : app ) ```
 
-        dependencies {
-            ...
-            implementation 'com.google.android.gms:play-services:12.0.1'
-        }
+    dependencies {
+        ...
+        implementation 'com.google.android.gms:play-services:12.0.1'
+    }
 

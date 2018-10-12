@@ -39,7 +39,7 @@ public class PositionLatLngActivity extends AppCompatActivity implements GoogleA
 
     final int MY_REQUEST_PERMISSION_CODE = 2323;
     private final int INTERVAL_MILISECOND = 3000;
-    private boolean isUpdated = false;
+    private boolean isAutomatic = false;
 
     /**
      * @param savedInstanceState
@@ -60,8 +60,27 @@ public class PositionLatLngActivity extends AppCompatActivity implements GoogleA
                 .setInterval( INTERVAL_MILISECOND)
                 .setFastestInterval( INTERVAL_MILISECOND);
 
-
     }
+
+    /**
+     * Si deseas actualizaciones automaticas cada 3 segundos
+     * @param isAutomatic
+     */
+    public void isAutomaticUpdates(boolean isAutomatic){
+        this.isAutomatic = isAutomatic;
+    }
+
+    /**
+     * Si deseas actializaciones automaticas cada cierto intervalo
+     * @param isAutomatic
+     * @param INTERVAL_MILISECOND
+     */
+    public void isAutomaticUpdates(boolean isAutomatic,int INTERVAL_MILISECOND){
+        this.isAutomatic = isAutomatic;
+        mLocationRequest.setInterval(INTERVAL_MILISECOND);
+        mLocationRequest.setFastestInterval(INTERVAL_MILISECOND);
+    }
+
     /**
      * Obtiene el resultado de la solicitud de permisos
      * @param requestCode codigo unico para llamada al permiso
@@ -215,8 +234,9 @@ public class PositionLatLngActivity extends AppCompatActivity implements GoogleA
     public void onLocationChanged(Location location) {
         if(mLastKnownLocation==null){
             handleNewLocation(location);
-        }else if(isUpdated){
+        }else if(isAutomatic){
             handleNewLocation(location);
         }
     }
+
 }

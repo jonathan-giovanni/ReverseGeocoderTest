@@ -56,6 +56,7 @@ Siempre en manifest dentro de las etiquetas ``` <application> ... </application>
       ...
     }
 <b> Conocer la coordenada GPS </b>
+
 Si deseas saber Latitud y Longitud de la posición en ese instante llama a la función ``` updateLatLng(); ``` y captura el resultado agregando el siguiente método
     
     

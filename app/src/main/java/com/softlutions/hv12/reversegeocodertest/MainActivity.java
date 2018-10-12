@@ -33,7 +33,7 @@ public class MainActivity extends PositionLatLngActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // se crea un manejador para recivir los resultados
+        // se crea un manejador para recibir los resultados
         mResultReceiver  = new AddressResultReceiver(new Handler());
         // se inicializan los controles
         btnRefreshLatLng = findViewById(R.id.btnRefreshLatLng);

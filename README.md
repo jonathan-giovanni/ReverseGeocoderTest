@@ -10,7 +10,7 @@ La geocodificación inversa es el proceso por el cual se obtiene una ubicación 
 
 # ¿Comó integrarlo en un proyecto?
 
-Primero que se deben agregar las siguientes dependencias al archivo ``` build.gradle (Module : app ) ```
+* Primero se deben agregar las siguientes dependencias al archivo ``` build.gradle (Module : app ) ```
 
 Para habilitar el uso de Lambda
 
@@ -27,4 +27,13 @@ Para integrar los servicios de la API de Google
         ...
         implementation 'com.google.android.gms:play-services:12.0.1'
     }
+
+* Segundo se deben agregar los siguientes cambios al archivo ``` AndroidManifest.xml ```
+
+    <!-- Permisos necesarios para obtener la localizacion /-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 

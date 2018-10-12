@@ -50,7 +50,28 @@ Siempre en manifest dentro de las etiquetas ``` <application> ... </application>
 
 # ¿Comó usar los servicios de geolocalización?
 
-<b> Aplica herencia de la clase ``` PositionLatLngActivity ``` en el activity que deseas agregar la funcionalidad de Geolocalización. </b>
+<b> Aplica herencia de la clase </b> ``` PositionLatLngActivity ``` <b> en el activity que deseas agregar la funcionalidad de Geolocalización. </b>
 
-* Para obtener Latitud y Longitud de la posición en ese instante llama a la funcion 
+* Para obtener Latitud y Longitud de la posición en ese instante llama a la función ``` updateLatLng(); ``` y captura el resultado en la siguiente función
+
+    ```
+    @Override
+    protected void handleNewLocation(Location location) {
+        super.handleNewLocation(location);
+        double lat = location.getLatitude();
+        double lng = location.getLongitude();
+        /**obtengo la latitud y longitud*/
+        //txtLatLng.setText("Lat : "+lat+"\nLng : "+lng);
+        if (!Geocoder.isPresent()) {
+            Toast.makeText(this, "No hay geocoder ", Toast.LENGTH_SHORT).show();
+            setVisibleProgressBarAddress(false);
+            return;
+        }
+
+        Intent intent = new Intent(this, FetchAddressIntentService.class);
+        intent.putExtra(Constants.RECEIVER, mResultReceiver);
+        intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
+        startService(intent);
+    }
+    ```
 

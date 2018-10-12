@@ -34,35 +34,29 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Asynchronously handles an intent using a worker thread. Receives a ResultReceiver object and a
- * location through an intent. Tries to fetch the address for the location using a Geocoder, and
- * sends the result to the ResultReceiver.
+ * Asincrónicamente maneja un intent usando un subproceso de trabajo.
+ * Recibe un objeto ResultReceiver y una ubicación a través de un intent.
+ * Intenta obtener la dirección de la ubicación mediante un PositionLatLng y envía el resultado al ResultReceiver.
  */
 public class FetchAddressIntentService extends IntentService {
     private static final String TAG = "INFO_GC";
 
     /**
-     * The receiver where results are forwarded from this service.
+     * El receptor donde se reenvían los resultados de este servicio.
      */
     private ResultReceiver mReceiver;
 
     /**
-     * This constructor is required, and calls the super IntentService(String)
-     * constructor with the name for a worker thread.
+     * Este constructor es obligatorio y llama al super IntentService (String)
+     * constructor con el nombre de un hilo de trabajo.
      */
     public FetchAddressIntentService() {
-        // Use the TAG to name the worker thread.
         super(TAG);
     }
 
     /**
-     * Tries to get the location address using a Geocoder. If successful, sends an address to a
-     * result receiver. If unsuccessful, sends an error message instead.
-     * Note: We define a {@link android.os.ResultReceiver} in * MainActivity to process content
-     * sent from this service.
-     *
-     * This service calls this method from the default worker thread with the intent that started
-     * the service. When this method returns, the service automatically stops.
+     * Este servicio llama a este método desde el subproceso de trabajo predeterminado con la intención que se inició
+     * el servicio. Cuando este método vuelve, el servicio se detiene automáticamente.
      */
     @Override
     protected void onHandleIntent(Intent intent) {
@@ -70,17 +64,17 @@ public class FetchAddressIntentService extends IntentService {
 
         mReceiver = intent.getParcelableExtra(Constants.RECEIVER);
 
-        // Check if receiver was properly registered.
+        // si no se envia el recibidor entonces se detiene el proceso
         if (mReceiver == null) {
             Log.wtf(TAG, "No receiver received. There is nowhere to send the results.");
             return;
         }
 
-        // Get the location passed to this service through an extra.
+        // Obtengo la localizacion
         Location location = intent.getParcelableExtra(Constants.LOCATION_DATA_EXTRA);
 
-        // Make sure that the location data was really sent over through an extra. If it wasn't,
-        // send an error error message and return.
+        // Si la ubicacion es nulla o no se ha enviado entonces se enviar un mensaje de error
+        // Se detiene el proceso
         if (location == null) {
             errorMessage = "No location provider";
             Log.wtf(TAG, errorMessage);
@@ -88,31 +82,15 @@ public class FetchAddressIntentService extends IntentService {
             return;
         }
 
-        // Errors could still arise from using the Geocoder (for example, if there is no
-        // connectivity, or if the Geocoder is given illegal location data). Or, the Geocoder may
-        // simply not have an address for a location. In all these cases, we communicate with the
-        // receiver using a resultCode indicating failure. If an address is found, we use a
-        // resultCode indicating success.
-
-        // The Geocoder used in this sample. The Geocoder's responses are localized for the given
-        // Locale, which represents a specific geographical or linguistic region. Locales are used
-        // to alter the presentation of information such as numbers or dates to suit the conventions
-        // in the region they describe.
-
-        /**para obtener resultados en ingles*/
-
+        // Para obtener los resultados en ingles
         Locale aLocale = new Builder().setLanguage("en").build();
         Geocoder geocoder = new Geocoder(this, aLocale);
 
-
-
-        // Address found using the Geocoder.
+        // Se guardan los resultados en una lisa de tipo Address
         List<Address> addresses = null;
 
         try {
-            // Using getFromLocation() returns an array of Addresses for the area immediately
-            // surrounding the given latitude and longitude. The results are a best guess and are
-            // not guaranteed to be accurate.
+            // Intenta obtener la ubicación con un maximo de 4 resultados
             addresses = geocoder.getFromLocation(
                     location.getLatitude(),
                     location.getLongitude(),
@@ -121,18 +99,17 @@ public class FetchAddressIntentService extends IntentService {
 
 
         } catch (IOException ioException) {
-            // Catch network or other I/O problems.
             errorMessage = "Servicio no disponible";
             Log.e(TAG, errorMessage, ioException);
         } catch (IllegalArgumentException illegalArgumentException) {
-            // Catch invalid latitude or longitude values.
+            // Captura latitud y longitud invalidas
             errorMessage = "Coordenadas invalidas";
             Log.e(TAG, errorMessage + ". " +
                     "Latitude = " + location.getLatitude() +
                     ", Longitude = " + location.getLongitude(), illegalArgumentException);
         }
 
-        // Handle case where no address was found.
+        // En caso de que no se hayan encontrado direcciones se envia un mensaje de error
         if (addresses == null || addresses.size()  == 0) {
             if (errorMessage.isEmpty()) {
                 errorMessage = "Direccion no encontrada";
@@ -143,13 +120,26 @@ public class FetchAddressIntentService extends IntentService {
             Log.v(TAG,"Direccion encontrada 1");
             System.out.println("Resultados de busqueda");
             String city=null,state=null,country=null,result="";
+            //para cada una de las ubicaciones encontradas
+
+            /**
+             * Se evaluan cada una de las direcciones y se obtiene la ciudad estado y pais
+             * Se hace asi por que en algunos casos ya sea la ciudad o estado es nulo en una direccion
+             * ademas se obtiene el nombre mas corto, esto es asi por que en algunos casos agrega texto adicional Ej.
+             * Deparment of Sonsonate, es equivalente a solamente Sonsonate, por eso se busca el nombre mas corto
+             * El resultado se concantena en un String result
+             */
             for (Address addressItem:addresses) {
                 System.out.println("Ciudad "+addressItem.getLocality());
                 System.out.println("Estado "+addressItem.getAdminArea());
                 System.out.println("Pais "+addressItem.getCountryName());
-
-                //TODO: guardar en la BD el codigo de pais para busquedas
                 System.out.println("Codigo del pais "+addressItem.getCountryCode());
+
+                //TODO para mostrar la direccion a ese punto en especifico
+                // for(int i=0;i<addressItem.getMaxAddressLineIndex();i++){
+                //    System.out.println(addressItem.getAddressLine(i));
+                // }
+
 
                 String tempCity = addressItem.getLocality();
                 String tempState = addressItem.getAdminArea();
@@ -192,23 +182,13 @@ public class FetchAddressIntentService extends IntentService {
             found_address.setAdminArea(state);
 
             System.out.println(result);
-            // Fetch the address lines using {@code getAddressLine},
-            // join them, and send them to the thread. The {@link android.location.address}
-            // class provides other options for fetching address details that you may prefer
-            // to use. Here are some examples:
-            // getLocality() ("Mountain View", for example)
-            // getAdminArea() ("CA", for example)
-            // getPostalCode() ("94043", for example)
-            // getCountryCode() ("US", for example)
-            // getCountryName() ("United States", for example)
-
 
             deliverResultToReceiver(Constants.SUCCESS_RESULT, result);
         }
     }
 
     /**
-     * Sends a resultCode and message to the receiver.
+     * Envia un codigo de resultado al recibidor que obtiene el mensaje
      */
     private void deliverResultToReceiver(int resultCode, String message) {
         Bundle bundle = new Bundle();

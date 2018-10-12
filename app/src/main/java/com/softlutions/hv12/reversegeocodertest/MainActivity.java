@@ -14,29 +14,38 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 
-public class MainActivity extends GeocoderActivity{
+/**
+ * para obtener la latitud y longitud
+ * se aplica herencia de la clase PositionLatLngActivity
+ * PositionLatLngActivity se encarga de solicitar permisos, manejo de errores y obtener coordenadas GPS
+ * */
+public class MainActivity extends PositionLatLngActivity {
 
+    // controles
     Button btnRefreshLatLng;
     TextView txtLatLng;
     ProgressBar mProgressBarAddress;
+    // obtiene el resultado de la direccion
     private AddressResultReceiver mResultReceiver;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // se crea un manejador para recivir los resultados
         mResultReceiver  = new AddressResultReceiver(new Handler());
-
+        // se inicializan los controles
         btnRefreshLatLng = findViewById(R.id.btnRefreshLatLng);
         txtLatLng        = findViewById(R.id.txtLatLng);
         mProgressBarAddress = findViewById(R.id.progress_bar_address);
 
         btnRefreshLatLng.setOnClickListener(click -> {
+            // funcion dentro de PositionLatLngActivity que llama al servicio de obtencion de coordenadas
             updateLatLng();
         });
     }
+
 
     private void setVisibleProgressBarAddress(boolean isVisible) {
         if(isVisible){
@@ -79,9 +88,10 @@ public class MainActivity extends GeocoderActivity{
         super.handleNewLocation(location);
         double lat = location.getLatitude();
         double lng = location.getLongitude();
+        /**obtengo la latitud y longitud*/
         //txtLatLng.setText("Lat : "+lat+"\nLng : "+lng);
         if (!Geocoder.isPresent()) {
-            Toast.makeText(this, "No hay geocoder", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "No hay geocoder ", Toast.LENGTH_SHORT).show();
             setVisibleProgressBarAddress(false);
             return;
         }
@@ -105,7 +115,7 @@ public class MainActivity extends GeocoderActivity{
             txtLatLng.setText(Address);
 
             if (resultCode == Constants.SUCCESS_RESULT) {
-                Toast.makeText(MainActivity.this, "Direccion "+Address, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Direccion encontrada", Toast.LENGTH_SHORT).show();
             }else{
                 Toast.makeText(MainActivity.this, "No se encontro direcion", Toast.LENGTH_SHORT).show();
             }

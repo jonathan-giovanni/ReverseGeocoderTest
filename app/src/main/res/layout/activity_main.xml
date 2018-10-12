@@ -12,27 +12,22 @@
         android:id="@+id/groupAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <Button
+            android:layout_centerVertical="true"
             android:layout_marginRight="5dp"
             android:layout_alignParentRight="true"
-            android:id="@+id/btnEditAddress"
-            android:background="@drawable/ic_edit"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
-        <Button
-            android:layout_marginRight="5dp"
-            android:layout_toLeftOf="@id/btnEditAddress"
             android:id="@+id/btnRefreshLatLng"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:background="@drawable/ic_refresh" />
         <EditText
             android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/btnEditAddress"
+
             android:id="@+id/txtLatLng"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="25dp"
             android:layout_marginLeft="5dp"
             android:clickable="false"
             android:cursorVisible="false"

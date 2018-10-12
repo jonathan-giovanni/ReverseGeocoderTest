@@ -9,13 +9,16 @@ La geocodificación inversa es el proceso por el cual se obtiene una ubicación 
 
 Primero que se deben agregar las siguientes dependencias al archivo ``` build.gradle (Module : app ) ```
 
+Para habilitar el uso de Lambda
+
     android {
+        ...
         compileOptions {
             sourceCompatibility = '1.8'
             targetCompatibility = '1.8'
         }
     }
-
+Para integrar los servicios de la API de Google
 
     dependencies {
         ...
